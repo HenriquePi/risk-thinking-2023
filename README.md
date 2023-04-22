@@ -13,6 +13,8 @@
     - handle loading CSV
   - Axios
     - handle requests. friendlier API than vanilla fetch, handle errors, etc.
+  - @react-google-maps/api
+    - https://www.npmjs.com/package/@react-google-maps/api
   
 
 ## API
@@ -31,7 +33,7 @@
 ### Problem 1: Implement a Map with Location Markers and Risk Indicators
   1. ✔️ Install 
   2. ✔️ Load and parse the sample datasets.
-  3. Integrate a mapping library (e.g., Mapbox, Leaflet, Google Maps).
+  3. ✔️ Integrate a mapping library (e.g., Mapbox, Leaflet, Google Maps).
   4. Implement a control for users to select different decades.
   5. Display the locations (Lat, Long) from the dataset as markers on the map of a given decade year.
   6. Color-code the markers based on their Risk Rating (climate risk score) derived from the dataset.

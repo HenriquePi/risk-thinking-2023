@@ -1,1 +1,1 @@
-export { InteractiveMap } from './InteractiveMap/index';
+export {InteractiveMap} from './InteractiveMap';
