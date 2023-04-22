@@ -1,3 +1,45 @@
+# ASSESSMENT README
+
+## Sources
+  - syntax to allow importing CSV files
+    - https://dev.to/mahdi_falamarzi/how-to-read-csv-file-in-typescript-react-app-106h
+  - use client error
+    - https://nextjs.org/docs/messages/react-client-hook-in-server-component
+
+## additional packages
+  - papaparse
+    - handle CSV import
+  - csv-loader, dsv-loader
+    - handle loading CSV
+  - Axios
+    - handle requests. friendlier API than vanilla fetch, handle errors, etc.
+  
+
+## API
+  - /api/riskdata
+    - get endpoint for fetching the data, intermediate layer to prep for fetching this data from an external source
+
+## Notes
+  -  Not a fan of having the CSV in the public directory. unable to find a straight forward alternative at this time
+    - on a team i would consult peers/lead
+    - if there was a roadmap to fetch data from an external source, and having the CSV in public is for test/building purposes, then i would disregard this concern
+
+
+
+## Tasks
+
+### Problem 1: Implement a Map with Location Markers and Risk Indicators
+  1. ✔️ Install 
+  2. ✔️ Load and parse the sample datasets.
+  3. Integrate a mapping library (e.g., Mapbox, Leaflet, Google Maps).
+  4. Implement a control for users to select different decades.
+  5. Display the locations (Lat, Long) from the dataset as markers on the map of a given decade year.
+  6. Color-code the markers based on their Risk Rating (climate risk score) derived from the dataset.
+  7. Add interactivity to the map, such as zooming and panning, and display a tooltip with the Asset Name and Business Category on marker hover.
+
+
+# NEXT.js README
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
