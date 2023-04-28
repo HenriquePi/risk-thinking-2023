@@ -15,6 +15,10 @@
     - handle requests. friendlier API than vanilla fetch, handle errors, etc.
   - @react-google-maps/api
     - https://www.npmjs.com/package/@react-google-maps/api
+  - react-data-table-component
+    - data table component
+  - d3
+    - chart library
   
 
 ## API
@@ -34,10 +38,26 @@
   1. ✔️ Install 
   2. ✔️ Load and parse the sample datasets.
   3. ✔️ Integrate a mapping library (e.g., Mapbox, Leaflet, Google Maps).
-  4. Implement a control for users to select different decades.
-  5. Display the locations (Lat, Long) from the dataset as markers on the map of a given decade year.
-  6. Color-code the markers based on their Risk Rating (climate risk score) derived from the dataset.
-  7. Add interactivity to the map, such as zooming and panning, and display a tooltip with the Asset Name and Business Category on marker hover.
+  4. ✔️ Implement a control for users to select different decades.
+  5. ✔️ Display the locations (Lat, Long) from the dataset as markers on the map of a given decade year.
+  6. ✔️ Color-code the markers based on their Risk Rating (climate risk score) derived from the dataset.
+  7. ✔️ Add interactivity to the map, such as zooming and panning, and display a tooltip with the Asset Name and Business Category on marker hover.
+    - added onclick, view info
+### Problem 2: Create a Data Table with Sorting and Filtering Capabilities
+
+  1. ✔️ Create a data table component.
+  2. ✔️ Load and display the sample dataset with a given year selection (from Problem 1) in the table.
+  3. ✔️ Implement sorting functionality on reasonable columns.
+  4. ✔️ Implement filter functionality on reasonable columns, especially risk factors.
+
+### Problem 3: Visualize Risk Over Time with Line Graphs
+
+  1. Set up a charting library (e.g., Chart.js, D3.js, Highcharts).
+  2. Implement a line graph component that displays the Risk Rating over time (Year) for a selected location (Lat, Long), Asset, or Business Category.
+  3. Add interactivity to the graph, such as tooltips displaying Asset Name, Risk Rating, Risk Factors, and Year.
+  4. Implement controls for selecting different locations, Assets, or Business Categories to visualize their risk levels over time.
+      -  You may need to perform some data aggregation in order to achieve this.
+
 
 
 # NEXT.js README

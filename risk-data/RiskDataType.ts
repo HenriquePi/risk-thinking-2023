@@ -5,7 +5,7 @@ export type RiskData = {
     [key: string]: number,
   },
   "Risk Rating": string,
-  Year: string,
+  Year: string | Date | null,
   Lat: string,
   Long: string,
 }
