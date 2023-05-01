@@ -8,6 +8,7 @@ export default function createGraph (activeData: RiskData[] | null, activeLines:
   width = 700 - margin.left - margin.right,
   height = 500 - margin.top - margin.bottom;    
   // append the svg object to the graph element of the page
+  //@ts-ignore
   if (d3.select("#risk-graph").select("svg")._groups[0][0]) {
     // remove existing graph
     d3.select("#risk-graph").select("svg").remove();
