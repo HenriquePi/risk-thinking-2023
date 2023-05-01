@@ -3,8 +3,8 @@ import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { RiskData, RiskDataObject } from '../../../risk-data/RiskDataType';
 
 const containerStyle = {
-  width: '400px',
-  height: '400px'
+  width: '100%',
+  aspectRatio: 2
 };
 
 const center = {
@@ -58,6 +58,7 @@ const Map:React.FC<props> = ({riskData, selectDecade}) => {
     <div className="flex flex-col">
       <div className="w-full text-black bg-white">
         <select className="w-full" onChange={(event) => selectDecade(parseInt(event.target.value))}>
+          <option value={"All"}>All Decades</option>
           {
             riskData?.decadeRange?.map((range, index) => (
               <option key={`${range}-map-decades`} value={range}>{range}</option>
@@ -68,7 +69,7 @@ const Map:React.FC<props> = ({riskData, selectDecade}) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={100}
+        zoom={1}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >

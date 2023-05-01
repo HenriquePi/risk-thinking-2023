@@ -29,6 +29,20 @@
   -  Not a fan of having the CSV in the public directory. unable to find a straight forward alternative at this time
     - on a team i would consult peers/lead
     - if there was a roadmap to fetch data from an external source, and having the CSV in public is for test/building purposes, then i would disregard this concern
+  - set up data aggregation due to entries with the same location/business category/asset name/ year
+  - avoided data processing (e.g taking averages to better symbolize risk rating for given location across business categories and assets with a single line) because of risk of data distortion. would need to communicate concerns with data science team before proceeding.
+  - would add more checks and controls to make data visualization more intuitive
+    - make selectable filters restricted to options that connect with available data
+    - add a reset button 
+  - could have used tailwind classes, but for speed this was ignored. for more thorough view of my capabilities and considerations in this area you can review [My Summer Starter](https://github.com/HenriquePi/summer-starter)
+    - the readme me contains my base considerations and methodology for organizing projects. this starter is not intended for scale or SaSS.
+  - for creating websites from designs designs you can review the following sites which i programmed solo or as the primary UI developer. Repositories are private.
+    - [Unlyst.com crowd valuation platform](https://www.unlyst.com/) : NextJS + Tailwind
+    - [Strain NFT](https://www.strainnft.io/) : NextJS + SCSS; Currently the full site is not live. just the landing page while Cryptocurrency related auditing is in progress
+    - [Life Without a Doctor](https://lifewithoutadoctor.ca/) : GatsbyJS + SCSS
+    - this list was valid as of 2023-05-1
+  - as of 2023-05-1 Task 4 is not complete as per my standards.
+   -  I have invested more than 500% of the time i would usually put in to an assessment, i did so because of my keen interest in this specific position and my interest in both the mission and the nature of work that RiskThinking.AI provides. but having invested a considerable amount of time into this assessment, i had to start prioritizing my other efforts.
 
 
 
@@ -52,11 +66,18 @@
 
 ### Problem 3: Visualize Risk Over Time with Line Graphs
 
-  1. Set up a charting library (e.g., Chart.js, D3.js, Highcharts).
-  2. Implement a line graph component that displays the Risk Rating over time (Year) for a selected location (Lat, Long), Asset, or Business Category.
-  3. Add interactivity to the graph, such as tooltips displaying Asset Name, Risk Rating, Risk Factors, and Year.
-  4. Implement controls for selecting different locations, Assets, or Business Categories to visualize their risk levels over time.
-      -  You may need to perform some data aggregation in order to achieve this.
+  1. ✔️ Set up a charting library (e.g., Chart.js, D3.js, Highcharts).
+  2. ✔️ Implement a line graph component that displays the Risk Rating over time (Year) for a selected location (Lat, Long), Asset, or Business Category.
+  3. ✔️ Add interactivity to the graph, such as tooltips displaying Asset Name, Risk Rating, Risk Factors, and Year.
+  4. ✔️ Implement controls for selecting different locations, Assets, or Business Categories to visualize their risk levels over time.
+      -  ✔️ You may need to perform some data aggregation in order to achieve this.
+
+### Problem 4: Integrate Components and Optimize Performance
+
+  1. ✔️ Design a user interface that integrates the map, data table, and line graph components.
+  2. Implement state management to handle user interactions and data flow between components (e.g., selecting a location on the map updates the line graph and data table).
+  3. ✔️ Optimize the app's performance by implementing lazy loading for components and efficient data handling, such as pagination for the data table.
+  4. (Bonus) Implement reasonable tests for utility functions, data flow hooks, and React components.
 
 
 

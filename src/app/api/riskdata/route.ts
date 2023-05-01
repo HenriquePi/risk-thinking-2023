@@ -1,6 +1,6 @@
 import Papa, { ParseResult } from "papaparse"
 import fs from 'fs';
-import getDecades, { getCSVData } from "./utils";
+import {getDecades, aggregate, getCSVData } from "./utils";
 import { stringify } from "querystring";
 import { RiskData } from "../../../../risk-data";
 import { RiskDataObject } from "../../../../risk-data/RiskDataType";
@@ -8,7 +8,9 @@ import { RiskDataObject } from "../../../../risk-data/RiskDataType";
 export async function GET(request: Request) {
   
   const dataString = await getCSVData('./public/SampleData.csv');
-  const dataStringWithDecades:RiskDataObject = {data: dataString, decadeRange: getDecades(dataString)};
+  const aggregateData = aggregate(dataString);
+  const dataStringWithDecades:RiskDataObject = {data: aggregateData, decadeRange: getDecades(aggregateData)};
+
 
   return new Response(JSON.stringify(dataStringWithDecades));
 }
@@ -26,7 +28,8 @@ export async function POST(request: Request) {
     ) {
 
       const dataString:RiskData[] = await getCSVData('./public/SampleData.csv');
-      let filteredDataStringWithDecades:RiskDataObject = {data: dataString, decadeRange: getDecades(dataString)};
+      const aggregateData = aggregate(dataString);
+      let filteredDataStringWithDecades:RiskDataObject = {data: aggregateData, decadeRange: getDecades(aggregateData)};
       if (request.body) {
         const filteredData = dataString.filter((item: RiskData) => {
           return item["Year"] === (body.year as number).toString();

@@ -15,7 +15,7 @@ export const getCSVData = async (path: string) => {
   return dataString;
 };
 
-export default function getDecades(data: RiskData[]) {
+export function getDecades(data: RiskData[]) {
   const highestYear = data.reduce((acc, curr) => {
     return Math.max(acc, parseInt(curr.Year));
   }, 0);
@@ -33,4 +33,39 @@ export default function getDecades(data: RiskData[]) {
     decades.push(i);
   }
   return decades;
+}
+
+type RiskHash = {
+  [key: string]: RiskData,
+}
+
+export function aggregate (data:RiskData[]) {
+  let hash:RiskHash = {};
+  
+  //parse Risk Factors to JSON
+  data.forEach((item) => {
+    item["Risk Factors"] = JSON.parse(item["Risk Factors"]);
+  });
+
+  data.forEach((item) => {
+    const key = [item["Asset Name"], item["Business Category"], item.Lat, item.Long, item.Year ].join('-');
+    hash[key] = {...hash[key], ...item, "Risk Factors": {...hash[key]?.["Risk Factors"], ...item["Risk Factors"]}};
+  });
+  // sum risk factors and set as new risk rating
+  Object.keys(hash).forEach((key) => {
+    const riskFactors = hash[key]["Risk Factors"];
+    const sum = Object.keys(riskFactors).reduce((acc, curr) => {
+      return acc + riskFactors[curr];
+    }, 0);
+    hash[key]["Risk Rating"] = sum.toString();
+  });
+  //convert hash to array
+  const aggregateData = Object.keys(hash).map((key) => {
+    return hash[key];
+  });
+  // convert risk data to string
+  aggregateData.forEach((item) => {
+    item["Risk Factors"] = JSON.stringify(item["Risk Factors"]);
+  });
+  return aggregateData;
 }
