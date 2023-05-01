@@ -36,6 +36,7 @@ export const RiskDataTable:React.FC = () => {
       Object.entries(filteredRiskData.data[0]).forEach(([key, value]) => {
         columns.push({
           name: key,
+          //@ts-ignore
           selector: row => row[key],
           sortable: true,
         })
