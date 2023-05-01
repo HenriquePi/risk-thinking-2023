@@ -43,6 +43,7 @@
     - this list was valid as of 2023-05-1
   - as of 2023-05-1 Task 4 is not complete as per my standards.
    -  I have invested more than 500% of the time i would usually put in to an assessment, i did so because of my keen interest in this specific position and my interest in both the mission and the nature of work that RiskThinking.AI provides. but having invested a considerable amount of time into this assessment, i had to start prioritizing my other efforts.
+  - Project does not run on windows, due to a reported bug with experimental setting. debugging build is problematic
 
 
 
@@ -75,7 +76,7 @@
 ### Problem 4: Integrate Components and Optimize Performance
 
   1. ✔️ Design a user interface that integrates the map, data table, and line graph components.
-  2. Implement state management to handle user interactions and data flow between components (e.g., selecting a location on the map updates the line graph and data table).
+  2. ✔️ Implement state management to handle user interactions and data flow between components (e.g., selecting a location on the map updates the line graph and data table).
   3. ✔️ Optimize the app's performance by implementing lazy loading for components and efficient data handling, such as pagination for the data table.
   4. (Bonus) Implement reasonable tests for utility functions, data flow hooks, and React components.
 

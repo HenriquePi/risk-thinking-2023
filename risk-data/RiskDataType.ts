@@ -3,7 +3,7 @@ export type RiskData = {
   "Business Category": string,
   "Risk Factors": {
     [key: string]: number,
-  },
+  } | string,
   "Risk Rating": string,
   Year: string | Date | null,
   Lat: string,
