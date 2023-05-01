@@ -85,7 +85,7 @@ const compileRiskFactors = (riskData: RiskData[]) => {
   let filters: string[] = [];
   if (riskData) {
     riskData.forEach((item) => {
-      Object.entries(JSON.parse(item["Risk Factors"])).map(([key, value]) => {
+      Object.entries(JSON.parse(item["Risk Factors"] as string)).map(([key, value]) => {
         if (!filters.includes(key)) {
           filters.push(key);
         }
@@ -99,7 +99,7 @@ const filterContainsSelectedRiskFactors = (riskData: RiskData[], activeFilters: 
   let filtering = JSON.parse(JSON.stringify(riskData));
   if (activeFilters.length > 0) {
     let filteredData = filtering.filter((item:RiskData) => {
-      let riskFactors = JSON.parse(item["Risk Factors"]);
+      let riskFactors = JSON.parse(item["Risk Factors"] as string);
       return activeFilters.every((filter) => riskFactors.hasOwnProperty(filter))
     })
     console.log("filter contains function", filteredData);
@@ -114,7 +114,7 @@ const filterOnlySelectedRiskFactors = (riskData: RiskData[], activeFilters: stri
   let filtering = JSON.parse(JSON.stringify(riskData));
   if (activeFilters.length > 0) {
     let filteredData = filtering.filter((item:RiskData) => {
-      let riskFactors = JSON.parse(item["Risk Factors"]);
+      let riskFactors = JSON.parse(item["Risk Factors"] as string);
       
       const hasAllActiveFilters = activeFilters.every((filter) => riskFactors.hasOwnProperty(filter));
       const hasNoExtraProperties = Object.keys(riskFactors).length === activeFilters.length;

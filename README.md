@@ -44,6 +44,8 @@
   - as of 2023-05-1 Task 4 is not complete as per my standards.
    -  I have invested more than 500% of the time i would usually put in to an assessment, i did so because of my keen interest in this specific position and my interest in both the mission and the nature of work that RiskThinking.AI provides. but having invested a considerable amount of time into this assessment, i had to start prioritizing my other efforts.
   - Project does not run on windows, due to a reported bug with experimental setting. debugging build is problematic
+  - git commits are non descriptive, due do time constraints and the nature of the project
+  - typescript best practices are not followed for similar reasons
 
 
 
