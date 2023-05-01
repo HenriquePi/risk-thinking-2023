@@ -17,11 +17,11 @@ export const getCSVData = async (path: string) => {
 
 export function getDecades(data: RiskData[]) {
   const highestYear = data.reduce((acc, curr) => {
-    return Math.max(acc, parseInt(curr.Year));
+    return Math.max(acc, parseInt(curr.Year as string));
   }, 0);
 
   const lowestYear = data.reduce((acc, curr) => {
-    return Math.min(acc, parseInt(curr.Year));
+    return Math.min(acc, parseInt(curr.Year as string));
   }
   , highestYear);
 
@@ -58,6 +58,7 @@ export function aggregate (data:RiskData[]) {
   });
   // sum risk factors and set as new risk rating
   Object.keys(hash).forEach((key) => {
+    // , value is always an object here
     // @ts-ignore
     const riskFactors:KeyObject = hash[key]["Risk Factors"];
     const sum = Object.keys(riskFactors).reduce((acc, curr) => {
