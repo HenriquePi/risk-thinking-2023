@@ -30,7 +30,7 @@ export const RiskChart:React.FC = () => {
     var parseDate = d3.timeParse("%Y");
     if (filteredRiskData?.data){
       let createActiveData = JSON.parse(JSON.stringify(filteredRiskData?.data));
-      createActiveData?.forEach((data) => {
+      createActiveData?.forEach((data: RiskData) => {
         if (typeof data.Year === "string")
           data.Year = parseDate(data.Year);
       });
