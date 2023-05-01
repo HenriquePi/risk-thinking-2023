@@ -26,8 +26,7 @@ export async function POST(request: Request) {
       "year" in body &&
       typeof body.year === "number"
     ) {
-
-      const dataString:RiskData[] = await getCSVData('./public/SampleData.csv');
+      const dataString:RiskData[] = await getCSVData('./SampleData.csv');
       const aggregateData = aggregate(dataString);
       let filteredDataStringWithDecades:RiskDataObject = {data: aggregateData, decadeRange: getDecades(aggregateData)};
       if (request.body) {
