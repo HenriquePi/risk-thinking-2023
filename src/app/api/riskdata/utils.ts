@@ -39,21 +39,27 @@ type RiskHash = {
   [key: string]: RiskData,
 }
 
+type KeyObject = {
+  [key: string]: number,
+}
+
+
 export function aggregate (data:RiskData[]) {
   let hash:RiskHash = {};
   
   //parse Risk Factors to JSON
   data.forEach((item) => {
-    item["Risk Factors"] = JSON.parse(item["Risk Factors"]);
+    item["Risk Factors"] = JSON.parse(item["Risk Factors"] as string);
   });
 
   data.forEach((item) => {
     const key = [item["Asset Name"], item["Business Category"], item.Lat, item.Long, item.Year ].join('-');
-    hash[key] = {...hash[key], ...item, "Risk Factors": {...hash[key]?.["Risk Factors"], ...item["Risk Factors"]}};
+    hash[key] = {...hash[key], ...item, "Risk Factors": {...hash[key]?.["Risk Factors"] as KeyObject, ...item["Risk Factors"] as KeyObject}};
   });
   // sum risk factors and set as new risk rating
   Object.keys(hash).forEach((key) => {
-    const riskFactors = hash[key]["Risk Factors"];
+    // @ts-ignore
+    const riskFactors:KeyObject = hash[key]["Risk Factors"];
     const sum = Object.keys(riskFactors).reduce((acc, curr) => {
       return acc + riskFactors[curr];
     }, 0);
