@@ -4,13 +4,18 @@ import { RiskContext } from '../../../risk-data/RiskContext';
 import { RiskData, RiskDataObject } from '../../../risk-data/RiskDataType';
 
 // modify type to allow JSX.Element
-type RiskDataTable = RiskDataObject & {
+type RiskDataTableObject = RiskDataObject | {
   data: {
     "Risk Factors": {
       [key: string]: number,
-    } | JSX.Element,
+    } | JSX.Element[],
   }[]
 };
+type RiskDataTable = RiskData | {
+  "Risk Factors": {
+    [key: string]: number,
+  } | JSX.Element[] | string,
+}
 
 type columnSpec = {
   name: string,
@@ -23,7 +28,7 @@ type columnSpec = {
 
 export const RiskDataTable:React.FC = () => {
   const [columnData, setColumnData] = React.useState<any>([]);
-  const [tableData, setTableData] = React.useState<RiskData[] | []>([]);
+  const [tableData, setTableData] = React.useState<RiskDataTable[] | []>([]);
 
   const { filteredRiskData, selectedRiskFactors, riskFactorsList, riskFilterType, toggleRiskFactorFilter, updateSelectedRiskFactors } = React.useContext(RiskContext);
 
@@ -42,16 +47,16 @@ export const RiskDataTable:React.FC = () => {
         })
       })
       setColumnData(columns);
-      setTableData(filteredRiskData.data);
+      setTableData(filteredRiskData.data as RiskDataTable[]);
     }
   }
 
   const processRiskFactors = () => {
     // modify data for table
-    let parsedTableData = JSON.parse(JSON.stringify(tableData));
+    let parsedTableData:RiskDataTable[] = JSON.parse(JSON.stringify(tableData));
     if (typeof parsedTableData[0]["Risk Factors"] === "string") {
-      parsedTableData.forEach((item: RiskData) => {
-        item["Risk Factors"] = Object.entries(JSON.parse(item["Risk Factors"])).map((item, index) => {
+      parsedTableData.forEach((item: RiskDataTable) => {
+        item["Risk Factors"] = Object.entries(JSON.parse(item["Risk Factors"] as string)).map((item, index) => {
           return <p className="" key={`risk-factors-${item[0]}-${item[1]}`}>{`${item[0]}: ${item[1]}`}</p>
         })
       })
