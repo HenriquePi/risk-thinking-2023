@@ -1,5 +1,6 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
+import { RiskContext } from '../../../risk-data/RiskContext';
 import { RiskData, RiskDataObject } from '../../../risk-data/RiskDataType';
 
 // modify type to allow JSX.Element
@@ -11,29 +12,28 @@ type RiskDataTable = RiskDataObject & {
   }[]
 };
 
-type props = {
-  riskData: RiskDataTable | null,
-  decade: number | null,
+type columnSpec = {
+  name: string,
+  selector: (row: RiskData) => string | number | JSX.Element,
+  sortable: boolean,
 }
 
 
 
-export const RiskDataTable:React.FC<props> = ({riskData, decade}) => {
+
+export const RiskDataTable:React.FC = () => {
   const [columnData, setColumnData] = React.useState<any>([]);
   const [tableData, setTableData] = React.useState<RiskData[] | []>([]);
 
-  
-  const [filters, setFilters] = React.useState<string[]>([]);
-  const [activeFilters, setActiveFilters] = React.useState<string[]>([]);
-  const [filterType, setFilterType] = React.useState<boolean>(true);
+  const { filteredRiskData, selectedRiskFactors, riskFactorsList, riskFilterType, toggleRiskFactorFilter, updateSelectedRiskFactors } = React.useContext(RiskContext);
 
   // process data
 
   const processTableData = () => {
-    let columns = [];
+    let columns:columnSpec[] = [];
     // set columns
-    if (riskData) {
-      Object.entries(riskData.data[0]).forEach(([key, value]) => {
+    if (filteredRiskData && filteredRiskData.data.length > 0) {
+      Object.entries(filteredRiskData.data[0]).forEach(([key, value]) => {
         columns.push({
           name: key,
           selector: row => row[key],
@@ -41,7 +41,7 @@ export const RiskDataTable:React.FC<props> = ({riskData, decade}) => {
         })
       })
       setColumnData(columns);
-      setTableData(riskData.data);
+      setTableData(filteredRiskData.data);
     }
   }
 
@@ -58,65 +58,11 @@ export const RiskDataTable:React.FC<props> = ({riskData, decade}) => {
     } 
   }
 
-  // Filters
-
-  const getFilters = () => {
-    // could be optimized
-    let filters = [];
-    if (riskData) {
-      riskData.data.forEach((item) => {
-        Object.entries(JSON.parse(item["Risk Factors"])).map(([key, value]) => {
-          if (!filters.includes(key)) {
-            filters.push(key);
-          }
-        })
-      })
-    }
-    setFilters(filters);
-  }
-
-  const filterContainsSelected = () => {
-    let filtering = JSON.parse(JSON.stringify(riskData));
-    if (activeFilters.length > 0) {
-      let filteredData = filtering?.data.filter((item) => {
-        let riskFactors = JSON.parse(item["Risk Factors"]);
-        return activeFilters.every((filter) => riskFactors.hasOwnProperty(filter))
-      })
-      setTableData(filteredData);
-    } else {
-      setTableData(filtering.data);
-    }
-
-  }
-  const filterOnlySelected = () => {
-    let filtering = JSON.parse(JSON.stringify(riskData));
-    if (activeFilters.length > 0) {
-      let filteredData = filtering?.data.filter((item) => {
-        let riskFactors = JSON.parse(item["Risk Factors"]);
-        
-        const hasAllActiveFilters = activeFilters.every((filter) => riskFactors.hasOwnProperty(filter));
-        const hasNoExtraProperties = Object.keys(riskFactors).length === activeFilters.length;
-  
-        return hasAllActiveFilters && hasNoExtraProperties;
-      });
-      setTableData(filteredData);
-    } else {
-      setTableData(filtering.data);
-    }
-  };
-
   React.useEffect(() => {
-    if (riskData) {
-      getFilters();
+    if (filteredRiskData) {
       processTableData();
     }
-  }, [riskData]);
-
-  React.useEffect(() => {
-    if (riskData) {
-      filterType ? filterContainsSelected() : filterOnlySelected();
-    }
-  }, [activeFilters, filterType]);
+  }, [filteredRiskData]);
 
   React.useEffect(() => {
     if (tableData?.length > 0) {
@@ -126,32 +72,7 @@ export const RiskDataTable:React.FC<props> = ({riskData, decade}) => {
 
   return (
     <div>
-      <div className='flex justify-between gap-2 pt-4'>
-        
-          <button 
-            className={`border rounded-full basis-0 grow border-blue-300`}
-            onClick={() => {setFilterType(!filterType)}}
-          >
-            {filterType ? 'Only Has Selected Risk' : 'Has Selected Risk'}
-          </button>
-      </div>
-      <div className='flex justify-between gap-2 py-4'>
-        {filters.map((item, index) => (
-          <button 
-            key={`${item}-filter`} 
-            className={`border rounded-full basis-0 grow ${activeFilters.includes(item) ? 'bg-green-600 text-white border-green-600' : 'bg-white text-red-600 border-red-600'}}`}
-            onClick={() => {
-              if (activeFilters.includes(item)) {
-                setActiveFilters(activeFilters.filter((filter) => filter !== item));
-              } else {
-                setActiveFilters([...activeFilters, item]);
-              }
-            }}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
+      
       <DataTable
         columns={columnData}
         data={tableData}

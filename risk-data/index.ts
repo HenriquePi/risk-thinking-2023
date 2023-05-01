@@ -1,1 +1,1 @@
-export type { RiskData } from './RiskDataType';
+export type { RiskData, RiskDataObject, locations, lines, legend } from './RiskDataType';

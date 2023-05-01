@@ -1,6 +1,7 @@
 import React from 'react'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { RiskData, RiskDataObject } from '../../../risk-data/RiskDataType';
+import { RiskContext } from '../../../risk-data/RiskContext';
 
 const containerStyle = {
   width: '100%',
@@ -12,12 +13,9 @@ const center = {
   lng: -60.1831
 };
 
-type props = {
-  riskData: RiskDataObject | null,
-  selectDecade: (decade: number) => void,
-}
+const Map:React.FC = () => {
 
-const Map:React.FC<props> = ({riskData, selectDecade}) => {
+  const {filteredRiskData, selectedDecade, setSelectedAsset, setSelectedCategory, setSelectedLocation} = React.useContext(RiskContext);
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -56,16 +54,6 @@ const Map:React.FC<props> = ({riskData, selectDecade}) => {
 
   return isLoaded ? (
     <div className="flex flex-col">
-      <div className="w-full text-black bg-white">
-        <select className="w-full" onChange={(event) => selectDecade(parseInt(event.target.value))}>
-          <option value={"All"}>All Decades</option>
-          {
-            riskData?.decadeRange?.map((range, index) => (
-              <option key={`${range}-map-decades`} value={range}>{range}</option>
-            ))
-          }
-        </select>
-      </div>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -77,7 +65,7 @@ const Map:React.FC<props> = ({riskData, selectDecade}) => {
         <>
           {
             // index should not be used as a key, but the data has duplicates and no UUID
-            riskData?.data.map((item,index) => (
+            filteredRiskData?.data.map((item,index) => (
               <Marker 
               icon={{
                 path:
@@ -96,6 +84,10 @@ const Map:React.FC<props> = ({riskData, selectDecade}) => {
                 onClick={() => {
                   setModal(true);
                   setModalData(item);
+                  setSelectedAsset(item["Asset Name"]);
+                  setSelectedCategory(item["Business Category"]);
+                  setSelectedLocation({Lat: item.Lat, Long: item.Long});
+                  
                 }}
                 visible
               />

@@ -1,5 +1,6 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { RiskContextProvider } from '../../risk-data/RiskContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,14 +16,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <div className='fixed z-10 flex items-center w-full gap-4 px-24 bg-black h-11'>
-          <a className='hover:text-purple-500' href="#map">Map</a>
-          <a className='hover:text-purple-500' href="#table">Table</a>
-          <a className='hover:text-purple-500' href="#chart">Chart</a>
-        </div>
-        {children}
-      </body>
+      <RiskContextProvider>
+        <body className={inter.className}>
+          <div className='fixed z-10 flex items-center w-full gap-4 px-24 bg-black border-b rounded-b border-b-purple-800 h-11'>
+            <a className='hover:text-purple-800' href="#map">Map</a>
+            <a className='hover:text-purple-800' href="#table">Table</a>
+            <a className='hover:text-purple-800' href="#chart">Chart</a>
+          </div>
+          {children}
+        </body>
+      </RiskContextProvider>
     </html>
   )
 }
