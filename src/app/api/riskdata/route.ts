@@ -1,13 +1,12 @@
-import Papa, { ParseResult } from "papaparse"
-import fs from 'fs';
+import path from 'path';
 import {getDecades, aggregate, getCSVData } from "./utils";
-import { stringify } from "querystring";
 import { RiskData } from "../../../../risk-data";
 import { RiskDataObject } from "../../../../risk-data/RiskDataType";
 
 export async function GET(request: Request) {
   
-  const dataString = await getCSVData('./public/SampleData.csv');
+  const csvFilePath = path.join(process.cwd(), 'public', 'SampleData.csv');
+  const dataString = await getCSVData(csvFilePath);
   const aggregateData = aggregate(dataString);
   const dataStringWithDecades:RiskDataObject = {data: aggregateData, decadeRange: getDecades(aggregateData)};
 
