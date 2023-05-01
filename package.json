@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/d3": "^7.4.0",
+    "@types/googlemaps": "^3.43.3",
     "@types/papaparse": "^5.3.7",
     "csv-loader": "^3.0.5",
     "dsv-loader": "^2.0.0"
