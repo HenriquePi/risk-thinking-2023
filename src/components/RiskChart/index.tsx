@@ -24,6 +24,7 @@ export const RiskChart:React.FC = () => {
   const [activeData, setActiveData] = React.useState<RiskData[] | null>(null);
   const [activeLines, setActiveLines] = React.useState<lines | null>(null);
   const [legend, setLegend] = React.useState<legend>({});
+  const [showMore, setShowMore] = React.useState<boolean>(false);
 
   const compileData = () => {
     // modify date for D3
@@ -68,11 +69,17 @@ export const RiskChart:React.FC = () => {
     }
   }, [activeLines]);
 
+  React.useEffect(() => {
+    if (legend) {
+      console.log("legend", legend, legend.length, );
+    }
+  }, [legend]);
+
   return (
     <div>
       <div className="flex flex-col xl:flex-row xl:justify-between">
         <div id="risk-graph" className="mx-auto"/>
-        <div id="legend" className="p-3 m-5 mx-auto border border-white rounded w-fit">
+        <div id="legend" className={`relative p-3 pb-[24px] m-5 mx-auto border border-white rounded w-fit ${(Object.keys(legend).length > 15) ? "max-h-[500px] overflow-y-scroll" : ""}`}>
           <h2>Legend</h2>
           {legend && Object.entries(legend).map(([key, value]) => (
             <div key={key}>

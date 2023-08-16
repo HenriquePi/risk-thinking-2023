@@ -37,7 +37,8 @@ export const RiskDataTable:React.FC = () => {
   const processTableData = () => {
     let columns:columnSpec[] = [];
     // set columns
-    if (filteredRiskData && filteredRiskData.data.length > 0) {
+
+    if (filteredRiskData && filteredRiskData.data.length) {
       Object.entries(filteredRiskData.data[0]).forEach(([key, value]) => {
         columns.push({
           name: key,
@@ -47,6 +48,9 @@ export const RiskDataTable:React.FC = () => {
         })
       })
       setColumnData(columns);
+    }
+    if (filteredRiskData && filteredRiskData.data) {
+      console.log("set table",filteredRiskData);
       setTableData(filteredRiskData.data as RiskDataTable[]);
     }
   }
@@ -66,6 +70,7 @@ export const RiskDataTable:React.FC = () => {
 
   React.useEffect(() => {
     if (filteredRiskData) {
+      console.log("new data", filteredRiskData);
       processTableData();
     }
   }, [filteredRiskData]);

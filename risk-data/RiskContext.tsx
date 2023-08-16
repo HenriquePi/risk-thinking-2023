@@ -177,7 +177,7 @@ export const RiskContextProvider:React.FC<Props> = ({children}) => {
       // filter by decade
       if (selectedDecade !== "All") {
         filteredData = filteredData.filter((data:RiskData) => {
-          return data["Year"] === selectedDecade;
+          return data["Year"] === `${selectedDecade}`;
         });
       }
       // filter by location

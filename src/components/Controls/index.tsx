@@ -21,6 +21,13 @@ export const Controls = () => {
     assetList,
     
   } = React.useContext(RiskContext);
+
+  React.useEffect(() => {
+    setSelectedLocation(locationList ? locationList[0] : "All");
+    setSelectedAsset(assetList ? assetList[0] : "All");
+  }, [locationList, categoryList, assetList]);
+
+
   return (
     <div className="fixed bottom-0 left-0 right-0 px-24 pt-6 pb-2 bg-white rounded-t">
       {/* Select Decade */}
@@ -41,7 +48,7 @@ export const Controls = () => {
           onChange={(e) => {
             console.log(e.target.value);
             if (e.target.value === "All")
-              setSelectedLocation("All");
+              setSelectedLocation(JSON.parse("All"));
             else
               setSelectedLocation(JSON.parse(e.target.value));
           }}
